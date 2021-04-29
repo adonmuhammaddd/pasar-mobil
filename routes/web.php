@@ -57,3 +57,11 @@ Route::group([
     Route::get('/', 'CategoryController@index')->name('category');
     Route::post('add-category', 'CategoryController@store')->name('add-category');
 });
+
+Route::group([
+    // 'middleware' => 'api',
+    'prefix' => 'stock'
+], function($router) {
+    Route::get('/', 'StockController@index')->name('stock');
+    Route::post('add-category', 'StockController@store')->name('add-category');
+});

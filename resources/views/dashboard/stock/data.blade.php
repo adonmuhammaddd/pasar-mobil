@@ -41,7 +41,7 @@
                     <thead>
                       <tr>
                         <th>#</th>
-                        <th>Name</th>
+                        <th>Car</th>
                         <th>Phone</th>
                         <th>Address</th>
                       </tr>

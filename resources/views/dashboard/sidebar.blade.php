@@ -22,13 +22,13 @@
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <li class="nav-item">
-            <a href={{ route('dashboard') }} class="nav-link active">
+            <a href={{ route('dashboard') }} class="nav-link {{ Request::segment(1) == 'dashboard' || Request::segment(1) == '' ? 'active' : '' }}" >
               <i class="far fa-circle nav-icon"></i>
               <p>Dashboard</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href={{ route('customer') }} class="nav-link">
+            <a href={{ route('customer') }} class="nav-link {{ Request::segment(1) == 'customer' || Request::segment(1) == '' ? 'active' : '' }}">
               <i class="nav-icon fas fa-users"></i>
               <p>
                 Customers
@@ -36,7 +36,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href={{ route('car') }} class="nav-link">
+            <a href={{ route('car') }} class="nav-link {{ Request::segment(1) == 'car' || Request::segment(1) == '' ? 'active' : '' }}">
               <i class="nav-icon fas fa-car"></i>
               <p>
                 Cars
@@ -44,7 +44,15 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href={{ route('category') }} class="nav-link">
+            <a href={{ route('stock') }} class="nav-link {{ Request::segment(1) == 'stock' || Request::segment(1) == '' ? 'active' : '' }}">
+              <i class="nav-icon fas fa-thumbtack"></i>
+              <p>
+                Stock
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href={{ route('category') }} class="nav-link {{ Request::segment(1) == 'category' || Request::segment(1) == '' ? 'active' : '' }}">
               <i class="nav-icon fas fa-archive"></i>
               <p>
                 Categories

@@ -32,7 +32,7 @@
                       <div class="card-tools">
 
                             <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-lg" id="add-car">
-                                Add Car
+                                <i class="fa fa-plus"></i> Add Car
                             </button>
                       </div>
                 </div>
