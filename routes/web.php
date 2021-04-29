@@ -15,15 +15,45 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/dashboard', ['uses'=>'DashboardController@index'])->name('dashboard');
 
-Route::get('login', 'AuthController@login')->name('login');
-Route::post('login', 'AuthController@authenticate');
-Route::post('logout', 'AuthController@logout')->name('logout');
 
-Route::get('customer', 'CustomerController@index')->name('customer');
-Route::post('add-customer', 'CustomerController@store')->name('add-customer');
+Route::group([
+    // 'middleware' => 'api',
+    'prefix' => 'auth'
+], function($router) {
+    Route::get('login', 'AuthController@login')->name('login');
+    Route::post('login', 'AuthController@authenticate');
+    Route::post('logout', 'AuthController@logout')->name('logout');
+});
 
-Route::get('car', 'CarController@index')->name('car');
-Route::post('add-car', 'CarController@store')->name('add-car');
 
-Route::get('category', 'CategoryController@index')->name('category');
-Route::post('add-category', 'CategoryController@store')->name('add-category');
+Route::group([
+    // 'middleware' => 'api',
+    'prefix' => 'auth'
+], function($router) {
+    
+});
+
+Route::group([
+    // 'middleware' => 'api',
+    'prefix' => 'customer'
+], function($router) {
+    Route::get('/', 'CustomerController@index')->name('customer');
+    Route::post('add-customer', 'CustomerController@store')->name('add-customer');
+});
+
+Route::group([
+    // 'middleware' => 'api',
+    'prefix' => 'car'
+], function($router) {
+    Route::get('/', 'CarController@index')->name('car');
+    Route::post('add-car', 'CarController@store')->name('add-car');
+    Route::get('category-box', 'CarController@categoryBox')->name('category-box');
+});
+
+Route::group([
+    // 'middleware' => 'api',
+    'prefix' => 'category'
+], function($router) {
+    Route::get('/', 'CategoryController@index')->name('category');
+    Route::post('add-category', 'CategoryController@store')->name('add-category');
+});
