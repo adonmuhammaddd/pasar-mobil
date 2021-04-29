@@ -16,7 +16,7 @@ class CreateTblSupplierTable extends Migration
         Schema::create('tbl_supplier', function (Blueprint $table) {
             $table->id('id');
             $table->string('name', 50);
-            $table->string('phone', 15);
+            $table->string('phone', 20);
             $table->longText('address');
             $table->longText('description');
             $table->timestamps();

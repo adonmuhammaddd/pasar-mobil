@@ -16,8 +16,7 @@ class CreateTblCustomerTable extends Migration
         Schema::create('tbl_customer', function (Blueprint $table) {
             $table->id();
             $table->string('name', 50);
-            $table->enum('gender', ['P', 'W']);
-            $table->string('phone', 15);
+            $table->string('phone', 20);
             $table->longText('address', 50);
             $table->timestamps();
         });

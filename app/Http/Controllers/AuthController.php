@@ -23,11 +23,6 @@ class AuthController extends Controller
     {
         return view('auth.login');
     }
-    
-    public function create()
-    {
-        return view('auth.register');
-    }
 
     public function authenticate(Request $request)
     {
@@ -50,6 +45,11 @@ class AuthController extends Controller
         Auth::logout();
 
         return redirect('login');
+    }
+    
+    public function users()
+    {
+        return view('dashboard.user.data');
     }
 
     public function store(Request $request)

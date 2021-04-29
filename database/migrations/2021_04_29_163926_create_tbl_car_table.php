@@ -16,7 +16,8 @@ class CreateTblCarTable extends Migration
         Schema::create('tbl_car', function (Blueprint $table) {
             $table->id();
             $table->string('name', 100);
-            $table->integer('category_id')->unsigned();
+            $table->unsignedBigInteger('category_id');
+            $table->foreign('category_id')->references('id')->on('tbl_category');
             $table->string('price', 50);
             $table->integer('stock');
             $table->string('image');
