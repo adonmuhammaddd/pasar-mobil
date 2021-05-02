@@ -29,7 +29,7 @@
           </li>
           <li class="nav-item">
             <a href={{ route('customer') }} class="nav-link {{ Request::segment(1) == 'customer' || Request::segment(1) == '' ? 'active' : '' }}">
-              <i class="nav-icon fas fa-users"></i>
+              <i class="nav-icon fas fa-user-friends"></i>
               <p>
                 Customers
               </p>
@@ -56,6 +56,14 @@
               <i class="nav-icon fas fa-archive"></i>
               <p>
                 Categories
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href={{ route('supplier') }} class="nav-link {{ Request::segment(1) == 'supplier' || Request::segment(1) == '' ? 'active' : '' }}">
+              <i class="nav-icon fas fa-users"></i>
+              <p>
+                Supplier
               </p>
             </a>
           </li>

@@ -9,12 +9,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Stock In</h1>
+            <h1 class="m-0">Supplier</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-              <li class="breadcrumb-item active">Stock In</li>
+              <li class="breadcrumb-item active">Supplier</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -31,22 +31,21 @@
                 <div class="card-header">
                       <div class="card-tools">
 
-                            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-lg" id="add-stock">
-                                Add Stock
+                            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-lg">
+                                Add Supplier
                             </button>
                       </div>
                 </div>
                 <div class="card-body">
-                  <table id="customer-table" class="table table-bordered table-hover">
+                  <table id="supplier-table" class="table table-bordered table-hover">
                     <thead>
                       <tr>
                         <th>#</th>
-                        <th>Car</th>
-                        <th>Type</th>
-                        <th>Detail</th>
-                        <th>Supplier</th>
-                        <th>Quantity</th>
-                        <th>User</th>
+                        <th>Name</th>
+                        <th>Phone</th>
+                        <th>Address</th>
+                        <th>Description</th>
+                        <th>Action</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -54,12 +53,18 @@
                         @foreach($result as $key => $data)
                             <tr>
                                 <td>{{ $no++ }}</td>
-                                <td>{{ $data->car_name }}</td>
-                                <td>{{ $data->type }}</td>
-                                <td>{{ $data->detail }}</td>
-                                <td>{{ $data->supplier_name }}</td>
-                                <td>{{ $data->quantity }}</td>
-                                <td>{{ $data->user_name }}</td>
+                                <td>{{ $data->name }}</td>
+                                <td>{{ $data->phone }}</td>
+                                <td>{{ $data->address }}</td>
+                                <td>{{ $data->description }}</td>
+                                <td align="center">
+                                    <button class="btn btn-sm btn-warning">
+                                        <i class="far fa-edit"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-danger">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                </td>
                             </tr>
                         @endforeach()
                     </tbody>
@@ -80,44 +85,29 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Add Stock</h4>
+                    <h4 class="modal-title">Add Supplier</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form id="stock-form">
+                <form id="supplier-form">
                     <div class="modal-body">
                         <div class="card-body">
                             <div class="form-group">
-                                <label for="car">Car</label>
-                                <select class="form-control" name="car" id="car">
-                                  <option value="">-- Choose Car --</option>
-                                </select>
-                            </div>
-                              <label for="type">Type</label>
-                              <br>
-                              <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                                <label class="btn btn-secondary active">
-                                  <input type="radio" name="type" id="type_in" autocomplete="off" checked> In
-                                </label>
-                                <label class="btn btn-secondary">
-                                  <input type="radio" name="type" id="type_out" autocomplete="off"> Out
-                                </label>
-                              </div>
-                              <br>
-                            <div class="form-group">
-                                <label for="detail">Details</label>
-                                <textarea name="detail" type="text" class="form-control" id="detail" placeholder="Details"></textarea>
+                                <label for="name">Name</label>
+                                <input name="name" type="email" class="form-control" id="name" placeholder="Name">
                             </div>
                             <div class="form-group">
-                                <label for="supplier">Supplier</label>
-                                <select class="form-control" name="supplier" id="supplier">
-                                  <option value="">-- Choose Supplier --</option>
-                                </select>
+                                <label for="phone">Phone</label>
+                                <input name="phone" type="text" class="form-control" id="phone" placeholder="Phone">
                             </div>
                             <div class="form-group">
-                                <label for="quantity">Quantity</label>
-                                <input name="quantity" type="number" class="form-control" id="quantity" placeholder="Quantity">
+                                <label for="address">Address</label>
+                                <input name="address" type="text" class="form-control" id="address" placeholder="Address">
+                            </div>
+                            <div class="form-group">
+                                <label for="description">Description</label>
+                                <input name="description" type="text" class="form-control" id="description" placeholder="Description">
                             </div>
                         </div>
                     </div>
@@ -158,40 +148,10 @@
 
     <script>
         $(function () {
-            var table = $("#customer-table").DataTable({
+            var table = $("#supplier-table").DataTable({
                 "responsive": true, "lengthChange": false, "autoWidth": false,
                 "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-        });
-
-        $("#add-stock").click(function(event){
-          $.ajax({
-                url: "{{ route('supplier-box') }}",
-                type:"GET",
-                success:function(response){
-                    console.log(response);
-                    if(response) {
-                      var data = response.result;
-                      for (var i in data) {
-                        $('#supplier').append('<option value='+data[i].id+'>'+data[i].name+'</option>')
-                      }
-                    }
-                },
-            });
-
-          $.ajax({
-                url: "{{ route('car-box') }}",
-                type:"GET",
-                success:function(response){
-                    console.log(response);
-                    if(response) {
-                      var data = response.result;
-                      for (var i in data) {
-                        $('#car').append('<option value='+data[i].id+'>'+data[i].name+'</option>')
-                      }
-                    }
-                },
-            });
         });
 
         $("#save-btn").click(function(event){
@@ -200,22 +160,24 @@
             let name = $("input[name=name]").val();
             let phone = $("input[name=phone]").val();
             let address = $("input[name=address]").val();
+            let description = $("input[name=description]").val();
             let _token   = $('meta[name="csrf-token"]').attr('content');
 
             $.ajax({
-                url: "{{ route('add-customer') }}",
+                url: "{{ route('add-supplier') }}",
                 type:"POST",
                 data:{
                     name:name,
                     phone:phone,
                     address:address,
+                    description:description,
                     _token: _token
                 },
                 success:function(response){
                     console.log(response);
                     if(response) {
                         // $('.success').text(response.success);
-                        $("#customer-form")[0].reset();
+                        $("#supplier-form")[0].reset();
                         $('#modal-lg').modal('hide');
                         table.ajax.reload();
                     }

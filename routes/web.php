@@ -12,6 +12,9 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/', function () {
+    return redirect()->route('dashboard');
+});
 
 Route::get('/dashboard', ['uses'=>'DashboardController@index'])->name('dashboard');
 
@@ -63,5 +66,15 @@ Route::group([
     'prefix' => 'stock'
 ], function($router) {
     Route::get('/', 'StockController@index')->name('stock');
-    Route::post('add-category', 'StockController@store')->name('add-category');
+    Route::post('add-category', 'StockController@store')->name('add-stock');
+    Route::get('supplier-box', 'StockController@supplierBox')->name('supplier-box');
+    Route::get('car-box', 'StockController@carBox')->name('car-box');
+});
+
+Route::group([
+    // 'middleware' => 'api',
+    'prefix' => 'supplier'
+], function($router) {
+    Route::get('/', 'SupplierController@index')->name('supplier');
+    Route::post('add-supplier', 'SupplierController@store')->name('add-supplier');
 });

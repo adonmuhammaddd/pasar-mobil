@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
-use App\Category;
+use App\Stock;
+use App\Car;
+use App\Supplier;
 use Auth;
 use View;
 
-class CategoryController extends Controller
+class StockController extends Controller
 {
     public function index()
     {
@@ -17,21 +19,33 @@ class CategoryController extends Controller
             return view('auth.login');
         }
 
-        $CategoryData = DB::table('tbl_category')->get();
+        $StockData = DB::table('tbl_stock')->get();
         
-        return view::make('dashboard.category.data')->with('result', $CategoryData);
+        return view::make('dashboard.stock.data')->with('result', $StockData);
     }
-    
+
+    public function create()
+    {
+        //
+    }
+
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|max:100',
-            'description' => 'required|max:200'
+            'car_id' => 'required|numeric',
+            'type' => 'required',
+            'detail' => 'required|max:200',
+            'supplier_id' => 'required|numeric',
+            'quantity' => 'required|numeric'
         ]);
 
-        Category::create([
-            'name' => $request->name,
-            'description' => $request->description
+        Stock::create([
+            'car_id' => $request->car_id,
+            'type' => $request->type,
+            'detail' => $request->detail,
+            'supplier_id' => $request->supplier_id,
+            'quantity' => $request->quantity,
+            'user_id' => Auth::user()->id
         ]);
 
         return response()->json([
@@ -39,7 +53,7 @@ class CategoryController extends Controller
             'data' => $request->all()
         ]);
     }
-    
+
     public function show($id)
     {
         //
@@ -77,5 +91,23 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function supplierBox()
+    {
+        $Supplier = Supplier::select('*')->get();
+
+        return response()->json([
+            'result' => $Supplier
+        ]);
+    }
+
+    public function carBox()
+    {
+        $Car = Car::select('*')->get();
+
+        return response()->json([
+            'result' => $Car
+        ]);
     }
 }
